@@ -1,10 +1,7 @@
 package ec.telconet.mscomppruebaandersonzambrano.producto.entity.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -12,23 +9,41 @@ import java.util.List;
 /*Utilizamos lombok para no mostrar tanto código como los constructores
  * y los gettes y setters, una manera facil para mantener nuestra clase limpia*/
 @Entity // Indica que esta clase es una entidad JPA y se mapea a una tabla en la base de datos
-@Data // Genera automáticamente los métodos getter, setter, toString, equals y hashCode
-@Builder // Patrón de diseño que facilita la construcción de objetos complejos
+@Table(name = "usuario")
 @AllArgsConstructor // Genera un constructor con todos los argumentos
 @NoArgsConstructor // Genera un constructor sin argumentos
+@Getter
+@Setter
 public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario", updatable = false,nullable = false,unique = true)
     private Long id;
-    private String username;
+    @Column(name = "name", nullable = false, length = 50)
+    private String nombre;
+
+    @Column(name = "lastname", nullable = false, length = 50)
+    private String apellido;
+
+    @Column(name = "username", nullable = false, length = 50)
+    private String usuario;
+    @Column(name = "password", nullable = false, length = 50)
     private String contrasena;
-    private String mail;
-    private String estado;
-    @Column(name = "fecha_creacion")
-    private Date fechaCreacion;
-    @Column(name = "fecha_modificacion")
-    private Date fechaModificacion;
+    @Column(name = "mail", nullable = false, length = 50)
+
+    private String email;
+    @Column(name = "status", nullable = false, length = 1)
+    private Character estado;
+    @Column(name = "administrator", nullable = false)
+    private Boolean admin;
+/*private Date fachaCreacion;
+
+	private Date fechaActualizaion;
+
+	private Integer idUsuarioCreacion;
+
+	private Integer idUsuarioActualizacion;
+	*/
 
     @OneToMany(mappedBy = "usuario")
     private List<ProductoEntity> productos;
