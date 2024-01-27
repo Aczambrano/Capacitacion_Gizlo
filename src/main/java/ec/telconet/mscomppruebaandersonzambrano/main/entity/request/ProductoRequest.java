@@ -13,8 +13,8 @@ public class ProductoRequest {
     private int cantidadP;
     private double precioP;
     private String imagenP;
-    private String estadoP;
+    private Character estadoP;
 
-    private Long idUsuario;
+    //private Long idUsuario;
 
 }

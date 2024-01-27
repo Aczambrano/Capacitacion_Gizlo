@@ -57,6 +57,19 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/paginacion")
+    public ResponseEntity<OutputEntity<List<UsuarioResponse>>> findByMail(@RequestParam Integer pInicial,
+                                                                          @RequestParam Integer pFinal){
+        OutputEntity <List<UsuarioResponse>> out = null;
+        try{
+            out = this.usuarioService.getLastuser(pInicial,pFinal);
+            return new ResponseEntity<>(out,out.getCode());
+        }catch (Exception e){
+            out = new OutputEntity<List<UsuarioResponse>>().error();
+            return new ResponseEntity<>(out, out.getCode());
+        }
+    }
+
 
     @GetMapping()
     public ResponseEntity<OutputEntity<List<UsuarioResponse>>> getAll(){
@@ -88,6 +101,18 @@ public class UsuarioController {
         OutputEntity<String> out = null;
         try{
             out = this.usuarioService.update(id,data);
+            return new ResponseEntity<>(out, out.getCode());
+        }catch (Exception e){
+            out = new OutputEntity<String>().error();
+            return new ResponseEntity<>(out, out.getCode());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<OutputEntity<String>> delete(@PathVariable Long id){
+        OutputEntity<String> out = null;
+        try{
+            out = this.usuarioService.delete(id);
             return new ResponseEntity<>(out, out.getCode());
         }catch (Exception e){
             out = new OutputEntity<String>().error();

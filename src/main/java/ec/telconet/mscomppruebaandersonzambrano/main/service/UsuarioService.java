@@ -115,7 +115,7 @@ public class UsuarioService {
     public OutputEntity<List<UsuarioResponse>> getLastuser(Integer pInicial,Integer pFinal){
         OutputEntity<List<UsuarioResponse>> outPut = new OutputEntity<>();
         try{
-            Pageable pageable = PageRequest.of(pInicial,pInicial, Sort.by("id").descending());
+            Pageable pageable = PageRequest.of(pInicial,pFinal, Sort.by("id").descending());
             List<UsuarioEntity> usuarioEntities = this.usuarioRepository.findAll(pageable).getContent();
 
             if(usuarioEntities.isEmpty()){
@@ -189,6 +189,26 @@ public class UsuarioService {
             //UsuarioEntity user = new UsuarioEntity(usuario);
             this.usuarioRepository.save(usuario);
             return output.ok(MessageEnum.UPDATE.getCode(), MessageEnum.UPDATE.getMensaje(), null);
+            //TODO GUARDAMOS
+        } catch (MyException e) {
+            return output.error(e.getCode(),e.getMensaje(),null);
+        }catch (Exception e){
+            return output.error();
+        }
+    }
+
+    public OutputEntity<String> delete(Long id) throws MyException {
+        OutputEntity<String> output = new OutputEntity<>();
+
+        try {
+            UsuarioEntity usuario = this.usuarioRepository.findById(id).
+                    orElseThrow(() -> new MyException(MessageEnum.NOT_FOUND.getCode(),
+                            MessageEnum.NOT_FOUND.getMensaje()));
+            //TODO validar correo valido
+            usuario.setEstado('e');
+            //UsuarioEntity user = new UsuarioEntity(usuario);
+            this.usuarioRepository.save(usuario);
+            return output.ok(MessageEnum.DELETE.getCode(), MessageEnum.DELETE.getMensaje(), null);
             //TODO GUARDAMOS
         } catch (MyException e) {
             return output.error(e.getCode(),e.getMensaje(),null);

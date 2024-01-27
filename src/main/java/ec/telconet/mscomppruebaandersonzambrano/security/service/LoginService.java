@@ -8,12 +8,17 @@ import ec.telconet.mscomppruebaandersonzambrano.security.response.LoginResponse;
 import ec.telconet.mscomppruebaandersonzambrano.util.Exception.MyException;
 import ec.telconet.mscomppruebaandersonzambrano.util.entities.OutputEntity;
 import ec.telconet.mscomppruebaandersonzambrano.util.enums.MessageEnum;
+import ec.telconet.mscomppruebaandersonzambrano.util.helper.MetodoHelper;
 import ec.telconet.mscomppruebaandersonzambrano.util.helper.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class LoginService {
+    @Value("${secret-key-password}")
+    private String secretKeyPassword;
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -28,10 +33,22 @@ public class LoginService {
                 throw new MyException(MessageEnum.NOT_FOUND.getCode(), MessageEnum.NOT_FOUND.getMensaje());
             }
 
+            ///TODO
+            String password = MetodoHelper.desencryptPass(usuario.getContrasena(),this.secretKeyPassword);
+
             UsuarioResponse usuarioResponse = new UsuarioResponse(usuario);
 
+            if(!StringUtils.pathEquals(password,data.getClave())){
+                throw new MyException(MessageEnum.LOGIN_ERROR.getCode(),
+                        MessageEnum.LOGIN_ERROR.getMensaje());
+            }
+
             loginResponse.setUsuarioResponse(usuarioResponse);
-            loginResponse.setToken(this.tokenHelper.generateToken(data.getUsuario(),usuarioResponse,"clave123"));
+            loginResponse.setToken(this.tokenHelper.generateToken(data.getUsuario(),
+                    usuarioResponse,"clave123"));
+
+
+
             return output.ok(MessageEnum.OK.getCode(), MessageEnum.OK.getMensaje(), loginResponse);
         }catch (MyException e){
             return output.error(e.getCode(), e.getMensaje(),null);

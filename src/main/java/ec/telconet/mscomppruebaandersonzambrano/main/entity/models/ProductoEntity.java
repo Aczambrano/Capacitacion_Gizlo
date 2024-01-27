@@ -21,12 +21,16 @@ public class ProductoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Long id;
+    @Column(name = "name", nullable = false, length = 50)
     private String nombre;
+    @Column(name = "cantidad", nullable = false)
     private int cantidad;
+    @Column(name = "precio", nullable = false)
     private double precio;
+    @Column(name = "imagen", nullable = false, length = 500)
     private String imagen;
-    private String estado;
-
+    @Column(name = "status", nullable = false, length = 1)
+    private Character estado;
 
     /*
     @Column(name = "fecha_creacion")
@@ -34,11 +38,12 @@ public class ProductoEntity {
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
 */
+    /*
     @ManyToOne
-    @JoinColumn(name = "usuario_crea")
+    @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
-
+*/
     public ProductoEntity(ProductoRequest data) {
         this.nombre = data.getNombreP();
         this.cantidad= data.getCantidadP();
@@ -54,7 +59,7 @@ public class ProductoEntity {
         this.precio = data.getPrecio();
         this.imagen = data.getImagen();
         this.estado = data.getEstado();
-        this.usuario = data.getUsuario();
+        //this.usuario = data.getUsuario();
     }
 
 

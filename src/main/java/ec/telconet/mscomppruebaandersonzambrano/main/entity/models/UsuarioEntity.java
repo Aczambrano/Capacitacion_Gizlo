@@ -44,9 +44,9 @@ public class UsuarioEntity {
 
 	private Integer idUsuarioActualizacion;
 	*/
-
+/*
     @OneToMany(mappedBy = "usuario")
-    private List<ProductoEntity> productos;
+    private List<ProductoEntity> productos;*/
 
     public UsuarioEntity(UsuarioRequest data) {
 
