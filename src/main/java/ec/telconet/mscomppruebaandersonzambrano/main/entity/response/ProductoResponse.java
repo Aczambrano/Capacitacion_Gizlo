@@ -1,10 +1,7 @@
-package ec.telconet.mscomppruebaandersonzambrano.producto.entity.response;
+package ec.telconet.mscomppruebaandersonzambrano.main.entity.response;
 
-import ec.telconet.mscomppruebaandersonzambrano.producto.entity.models.ProductoEntity;
-import jakarta.persistence.Column;
+import ec.telconet.mscomppruebaandersonzambrano.main.entity.models.ProductoEntity;
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class ProductoResponse {
@@ -15,6 +12,7 @@ public class ProductoResponse {
     private double precio;
     private String imagen;
     private String estado;
+    private Long idUsuario;
 
     public ProductoResponse(ProductoEntity p){
         this.identificador = p.getId();
@@ -23,5 +21,6 @@ public class ProductoResponse {
         this.precio = p.getPrecio();
         this.imagen = p.getImagen();
         this.estado = p.getEstado();
+        this.idUsuario = p.getUsuario().getId();
     }
 }

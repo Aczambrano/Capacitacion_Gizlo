@@ -1,9 +1,9 @@
-package ec.telconet.mscomppruebaandersonzambrano.producto.entity.models;
+package ec.telconet.mscomppruebaandersonzambrano.main.entity.models;
 
+import ec.telconet.mscomppruebaandersonzambrano.main.entity.request.ProductoRequest;
+import ec.telconet.mscomppruebaandersonzambrano.main.entity.request.UsuarioRequest;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 /*Utilizamos lombok para no mostrar tanto código como los constructores
  * y los gettes y setters, una manera facil para mantener nuestra clase limpia*/
@@ -26,6 +26,8 @@ public class ProductoEntity {
     private double precio;
     private String imagen;
     private String estado;
+
+
     /*
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
@@ -35,4 +37,25 @@ public class ProductoEntity {
     @ManyToOne
     @JoinColumn(name = "usuario_crea")
     private UsuarioEntity usuario;
+
+
+    public ProductoEntity(ProductoRequest data) {
+        this.nombre = data.getNombreP();
+        this.cantidad= data.getCantidadP();
+        this.precio = data.getPrecioP();
+        this.imagen = data.getImagenP();
+        this.estado = data.getEstadoP();
+    }
+
+    public ProductoEntity(ProductoEntity data) {
+
+        this.nombre = data.getNombre();
+        this.cantidad= data.getCantidad();
+        this.precio = data.getPrecio();
+        this.imagen = data.getImagen();
+        this.estado = data.getEstado();
+        this.usuario = data.getUsuario();
+    }
+
+
 }

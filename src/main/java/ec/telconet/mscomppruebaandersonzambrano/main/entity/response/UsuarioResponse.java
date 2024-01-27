@@ -1,10 +1,11 @@
-package ec.telconet.mscomppruebaandersonzambrano.producto.entity.response;
+package ec.telconet.mscomppruebaandersonzambrano.main.entity.response;
 
-import ec.telconet.mscomppruebaandersonzambrano.producto.entity.models.UsuarioEntity;
+import ec.telconet.mscomppruebaandersonzambrano.main.entity.models.UsuarioEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-
+@AllArgsConstructor
 public class UsuarioResponse {
 
     private Long identificador;

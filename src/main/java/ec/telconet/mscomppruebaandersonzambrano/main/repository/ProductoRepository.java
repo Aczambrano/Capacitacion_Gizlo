@@ -1,6 +1,6 @@
-package ec.telconet.mscomppruebaandersonzambrano.producto.repository;
+package ec.telconet.mscomppruebaandersonzambrano.main.repository;
 
-import ec.telconet.mscomppruebaandersonzambrano.producto.entity.models.ProductoEntity;
+import ec.telconet.mscomppruebaandersonzambrano.main.entity.models.ProductoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
